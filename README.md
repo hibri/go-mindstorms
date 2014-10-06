@@ -8,21 +8,23 @@ In 2013, LEGO introduced its third-generation Mindstorms robotics set, the [EV3]
 
 The [ev3dev project](https://github.com/mindboards/ev3dev) maintains open source, hacker-friendly releases of EV3's operating system. Distributions include built-in [ssh](http://en.wikipedia.org/wiki/Secure_Shell) support and custom drivers for EV3's hardware. In fact, a simple file system-based interface can be used to interact with EV3's motors, sensors, buttons, and LEDs. Directories under `/sys/class` represent various device classes, and setting attributes is as simple as writing to files.
 
-For example, executing the following shell commands will run a motor at 50% speed:
+For example, executing the following shell commands will run a motor (assuming it was connected to some port first time after robot had been turned on) at 50% speed:
 
-	echo  50 > /sys/class/tacho-motor/outA:motor:tacho/speed_setpoint
-	echo   1 > /sys/class/tacho-motor/outA:motor:tacho/run
+	echo  50 > /sys/class/tacho-motor/tacho-motor0/duty_cycle_sp
+	echo   1 > /sys/class/tacho-motor/tacho-motor0/run
 
 This enables third-party developers to write EV3 bindings for any programming language that has a file system IO API.
 
-GoEV3 provides EV3 bindings for [Google Go](http://golang.org) (golang), enabling Mindstorms robot programmers to take advantage of Go's modern syntax and extensive standard library.
+GoEV3 provides EV3 bindings for [Google Go](http://golang.org) (golang), enabling Mindstorms robot programmers to take advantage of Go's efficiency, sane and clear concurrency model, modern syntax and extensive standard library.
+
+GoEV3 was originally developed by [Matt Rajca](https://github.com/mattrajca). For now the development is going on here in this fork. 
 
 Getting Started
 ---------------
 
 ### ev3dev
 
-First, we need to install ev3dev onto a Micro SD card (by using an SD card, we can keep EV3's built-in software intact). Instructions for the installation process can be found on [ev3dev's wiki](https://github.com/mindboards/ev3dev/wiki/Getting-started-v2). When you're done, reboot your EV3 and make sure you can ssh into it from your computer.
+First, we need to install ev3dev onto a Micro SD card (by using an SD card, we can keep EV3's built-in software intact). Instructions for the installation process can be found on [ev3dev's wiki](https://github.com/mindboards/ev3dev/wiki/Getting-started-v2). The following assumes that you have chosen the latest ev3dev's release. When you're done, reboot your EV3 and make sure you can ssh into it from your computer.
 
 ### Google Go
 
@@ -56,9 +58,9 @@ Now that we have Google Go up and running, we need to install GoEV3. First, let'
 
 We can obtain GoEV3 from its GitHub repository. Be sure to have internet connection sharing enabled prior to running the following commands:
 
-	mkdir -p gocode/src/github.com/mattrajca
-	cd gocode/src/github.com/mattrajca
-	wget -O GoEV3.tar.gz --no-check-certificate https://github.com/mattrajca/GoEV3/archive/master.tar.gz
+	mkdir -p gocode/src/github.com/ldmberman
+	cd gocode/src/github.com/ldmberman
+	wget -O GoEV3.tar.gz --no-check-certificate https://github.com/ldmberman/GoEV3/archive/master.tar.gz
 	tar -xf GoEV3.tar.gz
 	mv GoEV3-master GoEV3
 	rm GoEV3.tar.gz
@@ -68,7 +70,7 @@ Note we're not using `go get` to avoid installing `git` on the EV3.
 
 GoEV3 comes with a sample program that lets us exercise EV3's various hardware capabilities. We can now run it with the following commands:
 
-	go install github.com/mattrajca/GoEV3
+	go install github.com/ldmberman/GoEV3
 	gocode/bin/GoEV3
 
 Choose mode `6. Motors`, plug in a motor to output port A, and watch it turn! Feel free to explore the other modes.
@@ -89,8 +91,8 @@ Now paste in the following code:
 	package main
 	
 	import (
-		"github.com/mattrajca/GoEV3/Motor"
-		"github.com/mattrajca/GoEV3/Sensors"
+		"github.com/ldmberman/GoEV3/Motor"
+		"github.com/ldmberman/GoEV3/Sensors"
 		"time"
 	)
 	
@@ -132,24 +134,12 @@ Since attaching a USB cable to the EV3 isn't always convenient, instructions for
 Auto Login + Launcher
 ---------------------
 
-We can configure the EV3 to automatically log in to a program launcher at boot. The [GoEV3 Launcher](https://github.com/mattrajca/GoEV3-Launcher) will prompt us to run any Go program found in the `GOPATH/bin` directory. First, edit `/etc/login.defs`:
+We can configure the EV3 to automatically log in to a program launcher at boot. The [GoEV3 Launcher](https://github.com/ldmberman/GoEV3-Launcher) will prompt us to run any Go program found in the `GOPATH/bin` directory.
 
-	nano /etc/login.defs
+We need to obtain the GoEV3 Launcher:
 
-Add the following line: `NO_PASSWORD_CONSOLE tty1:tty2:tty3:tty4:tty5:tty6`
-
-Now let's edit `/etc/inittab`:
-
-	nano /etc/inittab
-
-Find a line similar to `1:2345:respawn:/sbin/getty 38400 tty1` and change it to:
-
-	1:2345:respawn:/sbin/getty --autologin root 38400 tty1
-
-The EV3 will now automatically log in at boot. Next, we need to obtain the GoEV3 Launcher:
-
-	cd ~/gocode/src/github.com/mattrajca
-	wget -O Launcher.tar.gz --no-check-certificate https://github.com/mattrajca/GoEV3-Launcher/archive/master.tar.gz
+	cd ~/gocode/src/github.com/ldmberman
+	wget -O Launcher.tar.gz --no-check-certificate https://github.com/ldmberman/GoEV3-Launcher/archive/master.tar.gz
 	tar -xf Launcher.tar.gz
 	mv GoEV3-Launcher-master Launcher
 	rm Launcher.tar.gz
@@ -157,7 +147,7 @@ The EV3 will now automatically log in at boot. Next, we need to obtain the GoEV3
 
 Let's build it and try it out:
 
-	go install github.com/mattrajca/Launcher
+	go install github.com/ldmberman/Launcher
 	gocode/bin/Launcher
 
 Select `GoEV3` and hit the Enter (center) button on the EV3.
@@ -182,7 +172,7 @@ All function and method calls in GoEV3 are thread-safe.
 Documentation
 -------------
 
-The complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/mattrajca/GoEV3).
+The complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/ldmberman/GoEV3).
 
 Contributing
 ------------
