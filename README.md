@@ -6,7 +6,7 @@ Introduction
 
 In 2013, LEGO introduced its third-generation Mindstorms robotics set, the [EV3](http://en.wikipedia.org/wiki/Lego_Mindstorms_EV3). Unlike its predecessors, the EV3 runs Linux, giving hackers and hobbyists the opportunity to create robots more capable than ever before.
 
-The [ev3dev project](https://github.com/mindboards/ev3dev) maintains open source, hacker-friendly releases of EV3's operating system. Distributions include built-in [ssh](http://en.wikipedia.org/wiki/Secure_Shell) support and custom drivers for EV3's hardware. In fact, a simple file system-based interface can be used to interact with EV3's motors, sensors, buttons, and LEDs. Directories under `/sys/class` represent various device classes, and setting attributes is as simple as writing to files.
+The [ev3dev project](http://www.ev3dev.org/) maintains open source, hacker-friendly releases of EV3's operating system. Distributions include built-in [ssh](http://en.wikipedia.org/wiki/Secure_Shell) support and custom drivers for EV3's hardware. In fact, a simple file system-based interface can be used to interact with EV3's motors, sensors, buttons, and LEDs. Directories under `/sys/class` represent various device classes, and setting attributes is as simple as writing to files.
 
 For example, executing the following shell commands will run a motor (assuming it was connected to some port first time after robot had been turned on) at 50% speed:
 
@@ -24,7 +24,7 @@ Getting Started
 
 ### ev3dev
 
-First, we need to install ev3dev onto a Micro SD card (by using an SD card, we can keep EV3's built-in software intact). Instructions for the installation process can be found on [ev3dev's wiki](https://github.com/mindboards/ev3dev/wiki/Getting-started-v2). The following assumes that you have chosen the latest ev3dev's release. When you're done, reboot your EV3 and make sure you can ssh into it from your computer.
+First, we need to install ev3dev onto a Micro SD card (by using an SD card, we can keep EV3's built-in software intact). Instructions for the installation process can be found on [ev3dev's getting started page](http://www.ev3dev.org/docs/getting-started/). The following assumes that you have chosen the latest ev3dev's release. When you're done, reboot your EV3 and make sure you can ssh into it from your computer.
 
 ### Google Go
 
