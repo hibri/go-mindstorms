@@ -2,7 +2,7 @@ package Sensors
 
 import (
 	"fmt"
-	"github.com/mattrajca/GoEV3/utilities"
+	"github.com/ldmberman/GoEV3/utilities"
 	"time"
 )
 

@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/mattrajca/GoEV3/Button"
-	"github.com/mattrajca/GoEV3/LED"
-	"github.com/mattrajca/GoEV3/Motor"
-	"github.com/mattrajca/GoEV3/Sensors"
-	"github.com/mattrajca/GoEV3/Sound"
-	"github.com/mattrajca/GoEV3/TTS"
+	"github.com/ldmberman/GoEV3/Button"
+	"github.com/ldmberman/GoEV3/LED"
+	"github.com/ldmberman/GoEV3/Motor"
+	"github.com/ldmberman/GoEV3/Sensors"
+	"github.com/ldmberman/GoEV3/Sound"
+	"github.com/ldmberman/GoEV3/TTS"
 	"time"
 )
 
