@@ -60,9 +60,9 @@ We can obtain GoEV3 from its GitHub repository. Be sure to have internet connect
 
 	mkdir -p gocode/src/github.com/ldmberman
 	cd gocode/src/github.com/ldmberman
-	wget -O GoEV3.tar.gz --no-check-certificate https://github.com/ldmberman/GoEV3/archive/master.tar.gz
+	wget -O GoEV3.tar.gz --no-check-certificate https://github.com/ldmberman/GoEV3/archive/0.2.0.tar.gz
 	tar -xf GoEV3.tar.gz
-	mv GoEV3-master GoEV3
+	mv GoEV3-0.2.0 GoEV3
 	rm GoEV3.tar.gz
 	cd ~
 
