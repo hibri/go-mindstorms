@@ -27,6 +27,7 @@ const (
 	TypeColor           = "ev3-uart-29"
 	TypeUltrasonic      = "ev3-uart-30"
 	TypeInfrared        = "ev3-uart-33"
+	TypeGyro            = "ev3-uart-32"
 )
 
 func (self Type) String() string {
@@ -39,6 +40,8 @@ func (self Type) String() string {
 		return "ultrasonic"
 	case TypeInfrared:
 		return "infrared"
+	case TypeGyro:
+		return "gyro"
 	default:
 		return "unknown"
 	}
