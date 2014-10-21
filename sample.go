@@ -137,6 +137,22 @@ func testLEDs() {
 	}
 }
 
+func testGyro() {
+	fmt.Println("Reading gyro values")
+
+	sensor := Sensors.FindGyroSensor(Sensors.InPort2)
+
+	for n := 0; n < 10 ; n++ {
+		angle := sensor.ReadAngle()
+		speed := sensor.ReadRotationalSpeed()
+
+		fmt.Printf("Angle: %v\n", angle)
+		fmt.Printf("Rotational speed: %v\n", speed)
+
+		time.Sleep(time.Second / 2)
+	}
+}
+
 func dispatchCommand(selection int) {
 	switch selection {
 	case 0:
@@ -167,6 +183,10 @@ func dispatchCommand(selection int) {
 		{
 			testLEDs()
 		}
+	case 7:
+		{
+			testGyro()
+		}
 	}
 }
 
@@ -176,7 +196,7 @@ func main() {
 	for {
 		fmt.Println("\nWhat would you like to test? Press Escape to exit.")
 
-		var entries = [7]string{
+		var entries = [8]string{
 			"Touch sensor and sound",
 			"Ultrasonic sensor",
 			"Infrared sensor",
@@ -184,6 +204,7 @@ func main() {
 			"Speech and brick buttons",
 			"Motors",
 			"LEDs",
+			"Gyro sensor",
 		}
 
 		for i, f := range entries {
