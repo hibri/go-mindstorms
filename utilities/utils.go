@@ -63,6 +63,10 @@ func ReadUInt32Value(filename string, basename string) uint32 {
 	return uint32(ReadIntValue(filename, basename))
 }
 
+func ReadInt32Value(filename string, basename string) int32 {
+	return int32(ReadIntValue(filename, basename))
+}
+
 func WriteStringValue(filename string, basename string, value string) {
 	actualFilename := path.Join(filename, basename)
 	ensureLockForFilename(actualFilename)

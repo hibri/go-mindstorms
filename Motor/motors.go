@@ -30,6 +30,7 @@ const (
 	powerSetterFD    = "duty_cycle_sp"
 	runFD            = "run"
 	stopModeFD       = "stop_mode"
+	positionFD       = "position"
 )
 
 func findFolder(port OutPort) string {
@@ -122,4 +123,9 @@ func EnableBrakeMode(port OutPort) {
 // Disables brake mode, causing the motor at the given port to coast to stops. Brake mode is off by default.
 func DisableBrakeMode(port OutPort) {
 	utilities.WriteStringValue(findFolder(port), stopModeFD, "coast")
+}
+
+// Reads the position of the motor at the given port.
+func CurrentPosition(port OutPort) int32 {
+	return utilities.ReadInt32Value(findFolder(port), positionFD)
 }
