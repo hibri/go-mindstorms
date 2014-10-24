@@ -129,3 +129,8 @@ func DisableBrakeMode(port OutPort) {
 func CurrentPosition(port OutPort) int32 {
 	return utilities.ReadInt32Value(findFolder(port), positionFD)
 }
+
+// Set the position of the motor at the given port.
+func InitializePosition(port OutPort, value int32) {
+	utilities.WriteIntValue(findFolder(port), positionFD, int64(value))
+}
