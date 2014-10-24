@@ -105,7 +105,7 @@ func testMotors() {
 	for n := 0; n < 20; n++ {
 		time.Sleep(time.Second / 2)
 
-		fmt.Printf("Running motor A with speed %d and power %d\n", Motor.CurrentSpeed(Motor.OutPortA), Motor.CurrentPower(Motor.OutPortA))
+		fmt.Printf("Running motor A with speed %d, power %d, and position %d\n", Motor.CurrentSpeed(Motor.OutPortA), Motor.CurrentPower(Motor.OutPortA), Motor.CurrentPosition(Motor.OutPortA))
 	}
 
 	Motor.Stop(Motor.OutPortA)
