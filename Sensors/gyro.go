@@ -23,7 +23,7 @@ func FindGyroSensor(port InPort) *GyroSensor {
 	return s
 }
 
-// Reads the angle in range [-32768, 32767].
+// Reads the angle of degrees.
 func (self *GyroSensor) ReadAngle() int16 {
 	snr := findSensor(self.port, TypeGyro)
 
