@@ -23,7 +23,7 @@ const (
 	Left        = 105
 	Right       = 106
 	Enter       = 28
-	Escape      = 1
+	Escape      = 14
 )
 
 func findFilename() string {
