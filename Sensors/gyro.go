@@ -42,4 +42,3 @@ func (self *GyroSensor) ReadRotationalSpeed() int16 {
 
 	return value
 }
-

@@ -142,7 +142,7 @@ func testGyro() {
 
 	sensor := Sensors.FindGyroSensor(Sensors.InPort2)
 
-	for n := 0; n < 10 ; n++ {
+	for n := 0; n < 10; n++ {
 		angle := sensor.ReadAngle()
 		speed := sensor.ReadRotationalSpeed()
 

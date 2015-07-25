@@ -44,4 +44,3 @@ func (self *InfraredSensor) WaitForProximity() {
 		}
 	}
 }
-

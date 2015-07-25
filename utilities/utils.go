@@ -3,10 +3,10 @@ package utilities
 
 import (
 	"io/ioutil"
+	"path"
 	"strconv"
 	"strings"
 	"sync"
-	"path"
 )
 
 var gLocks map[string]*sync.RWMutex
