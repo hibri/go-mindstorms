@@ -23,13 +23,13 @@ const (
 	rootMotorPath = "/sys/class/tacho-motor"
 	// File descriptors for getting/setting parameters
 	portFD           = "port_name"
-	regulationModeFD = "regulation_mode"
-	speedGetterFD    = "pulses_per_second"
-	speedSetterFD    = "pulses_per_second_sp"
+	regulationModeFD = "speed_regulation"
+	speedGetterFD    = "speed"
+	speedSetterFD    = "speed_sp"
 	powerGetterFD    = "duty_cycle"
 	powerSetterFD    = "duty_cycle_sp"
-	runFD            = "run"
-	stopModeFD       = "stop_mode"
+	runFD            = "command"
+	stopModeFD       = "stop_command"
 	positionFD       = "position"
 )
 
@@ -66,7 +66,7 @@ func findFolder(port OutPort) string {
 //
 // When the regulation mode is on (has to be enabled by EnableRegulationMode function) the motor
 // driver attempts to keep the motor speed at the `speed` value you've specified
-// which ranges from -2000 to 2000.
+// which ranges from about -1000 to 1000. The actual range depends on the type of the motor - see ev3dev docs.
 //
 // Negative values indicate reverse motion regardless of the regulation mode.
 func Run(port OutPort, speed int16) {
@@ -75,23 +75,20 @@ func Run(port OutPort, speed int16) {
 
 	switch regulationMode {
 	case "on":
-		if speed > 2000 || speed < -2000 {
-			log.Fatal("The speed in regulation mode must be in range [-2000, 2000]")
-		}
 		utilities.WriteIntValue(folder, speedSetterFD, int64(speed))
-		utilities.WriteIntValue(folder, runFD, 1)
+		utilities.WriteStringValue(folder, runFD, "run-forever")
 	case "off":
 		if speed > 100 || speed < -100 {
 			log.Fatal("The speed must be in range [-100, 100]")
 		}
 		utilities.WriteIntValue(folder, powerSetterFD, int64(speed))
-		utilities.WriteIntValue(folder, runFD, 1)
+		utilities.WriteStringValue(folder, runFD, "run-forever")
 	}
 }
 
 // Stops the motor at the given port.
 func Stop(port OutPort) {
-	utilities.WriteIntValue(findFolder(port), runFD, 0)
+	utilities.WriteStringValue(findFolder(port), runFD, "stop")
 }
 
 // Reads the operating speed of the motor at the given port.
