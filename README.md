@@ -28,24 +28,35 @@ First, we need to install ev3dev onto a Micro SD card (by using an SD card, we c
 
 ### Google Go
 
-Next, we need to install an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney released [builds](http://dave.cheney.net/unofficial-arm-tarballs) of Go for various ARM architectures. On your computer, download the latest ARMv5 package (1.2 as of this writing). Once the download completes, transfer it to the EV3 over ssh using [scp](http://en.wikipedia.org/wiki/Secure_copy):
+Go now comes pre-installed on the ev3dev. For the latest ev3dev release (3.16.7-ckt14-6-ev3dev-ev3) the version is 1.3.3. Let's check it:
 
-	scp /path/to/go1.2.linux-arm~armv5-1.tar.gz root@192.168.3.2:~/go.tar.gz
+```
+	root@ev3dev:~# go version
+	go version go1.3.3 linux/arm
+```
 
-Be sure to replace `192.168.3.2` with your EV3's IP address. Now we can ssh into the EV3 and extract the archive to its final destination:
+GoEV3's code is quite simple so far and will likely work with any version from the 1.* range. If you for any reason wish to install a specific version of Go follow the instructions below.
+
+### Installing a custom version of Go
+
+For ev3dev we need an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney releases [builds](http://dave.cheney.net/unofficial-arm-tarballs) of Go for various ARM architectures. On your computer, download the ARMv5 package of the version you need. Once the download completes, transfer it to the EV3 over ssh using [scp](http://en.wikipedia.org/wiki/Secure_copy):
+
+	scp /path/to/go1.4.linux-arm~armv5-1.tar.gz root@192.168.3.2:~/go.tar.gz
+
+Be sure to replace `192.168.3.2` with your EV3's IP address and `1.4` with your actual Go version. Now we can ssh into the EV3 and extract the archive to its final destination:
 
 	cd /usr/local
 	tar -xf ~/go.tar.gz
 
 Extraction may take a few minutes. Once it's done, we'll add Go's `bin` directory to our shell's path:
 
-	echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
+	echo "export PATH=/usr/local/go/bin:\$PATH" >> ~/.bashrc
 	source ~/.bashrc
 
 We should now be able to invoke the `go` tool like so:
 
 	root@ev3dev:~# go version
-	go version go1.2 linux/arm
+	go version go1.4 linux/arm
 
 ### GoEV3
 
