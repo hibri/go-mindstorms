@@ -137,38 +137,10 @@ The motors on ports A and B will start turning. To stop them, simply extend your
 
 If you prefer writing and compiling Go programs on your computer, you can [cross-compile](http://dave.cheney.net/2012/09/08/an-introduction-to-cross-compilation-with-go) an ARMv5 binary and transfer it to the EV3 over scp.
 
-Auto Login + Launcher
+Launch from the brick
 ---------------------
 
-We can configure the EV3 to automatically log in to a program launcher at boot. The [GoEV3 Launcher](https://github.com/ldmberman/GoEV3-Launcher) will prompt us to run any Go program found in the `GOPATH/bin` directory.
-
-We need to obtain the GoEV3 Launcher:
-
-	cd ~/gocode/src/github.com/ldmberman
-	wget -O Launcher.tar.gz --no-check-certificate https://github.com/ldmberman/GoEV3-Launcher/archive/master.tar.gz
-	tar -xf Launcher.tar.gz
-	mv GoEV3-Launcher-master Launcher
-	rm Launcher.tar.gz
-	cd ~
-
-Let's build it and try it out:
-
-	go install github.com/ldmberman/Launcher
-	gocode/bin/Launcher
-
-Select `GoEV3` and hit the Enter (center) button on the EV3.
-
-Finally, let's configure the Launcher to run on login:
-
-	nano ~/.bashrc
-
-Add the following lines to the end of the file:
-
-	if [ -z "$SSH_CLIENT" ]; then
-		$GOPATH/bin/Launcher
-	fi
-
-The GoEV3 Launcher will now run automatically on boot. Reboot the EV3 to try it out.
+You can easily run Go programs directly from your brick, big thanks to brickman - the new ev3dev UI. Simply enter File Browser and choose a program you want to run from the `~/gocode/bin` folder.
 
 Thread Safety
 -------------
