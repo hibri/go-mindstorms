@@ -30,10 +30,8 @@ First, we need to install ev3dev onto a Micro SD card (by using an SD card, we c
 
 Go now comes pre-installed on the ev3dev. For the latest ev3dev release (3.16.7-ckt14-6-ev3dev-ev3) the version is 1.3.3. Let's check it:
 
-```
 	root@ev3dev:~# go version
 	go version go1.3.3 linux/arm
-```
 
 GoEV3's code is quite simple so far and will likely work with any version from the 1.* range. If you for any reason wish to install a specific version of Go follow the instructions below.
 
