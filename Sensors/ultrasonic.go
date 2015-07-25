@@ -24,7 +24,7 @@ func FindUltrasonicSensor(port InPort) *UltrasonicSensor {
 func (self *UltrasonicSensor) ReadDistance() uint16 {
 	snr := findSensor(self.port, TypeUltrasonic)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "US-SI-CM")
 	value := utilities.ReadUInt16Value(path, "value0")
 
@@ -35,7 +35,7 @@ func (self *UltrasonicSensor) ReadDistance() uint16 {
 func (self *UltrasonicSensor) Listen() bool {
 	snr := findSensor(self.port, TypeUltrasonic)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "US-LISTEN")
 	value := utilities.ReadUInt8Value(path, "value0")
 

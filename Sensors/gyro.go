@@ -17,7 +17,7 @@ func FindGyroSensor(port InPort) *GyroSensor {
 	s := new(GyroSensor)
 	s.port = port
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "GYRO-G&A")
 
 	return s
@@ -27,7 +27,7 @@ func FindGyroSensor(port InPort) *GyroSensor {
 func (self *GyroSensor) ReadAngle() int16 {
 	snr := findSensor(self.port, TypeGyro)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	value := utilities.ReadInt16Value(path, "value0")
 
 	return value
@@ -37,7 +37,7 @@ func (self *GyroSensor) ReadAngle() int16 {
 func (self *GyroSensor) ReadRotationalSpeed() int16 {
 	snr := findSensor(self.port, TypeGyro)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	value := utilities.ReadInt16Value(path, "value1")
 
 	return value

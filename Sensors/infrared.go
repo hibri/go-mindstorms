@@ -25,7 +25,7 @@ func FindInfraredSensor(port InPort) *InfraredSensor {
 func (self *InfraredSensor) ReadProximity() uint8 {
 	snr := findSensor(self.port, TypeInfrared)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "IR-PROX")
 	value := utilities.ReadUInt8Value(path, "value0")
 
@@ -44,3 +44,4 @@ func (self *InfraredSensor) WaitForProximity() {
 		}
 	}
 }
+

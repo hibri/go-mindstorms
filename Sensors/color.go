@@ -59,7 +59,7 @@ func (self Color) String() string {
 func (self *ColorSensor) ReadColor() Color {
 	snr := findSensor(self.port, TypeColor)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "COL-COLOR")
 	value := utilities.ReadUInt8Value(path, "value0")
 
@@ -70,7 +70,7 @@ func (self *ColorSensor) ReadColor() Color {
 func (self *ColorSensor) ReadReflectedLightIntensity() uint8 {
 	snr := findSensor(self.port, TypeColor)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "COL-REFLECT")
 	value := utilities.ReadUInt8Value(path, "value0")
 
@@ -81,7 +81,7 @@ func (self *ColorSensor) ReadReflectedLightIntensity() uint8 {
 func (self *ColorSensor) ReadAmbientLightIntensity() uint8 {
 	snr := findSensor(self.port, TypeColor)
 
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 	utilities.WriteStringValue(path, "mode", "COL-AMBIENT")
 	value := utilities.ReadUInt8Value(path, "value0")
 

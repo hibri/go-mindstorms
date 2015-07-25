@@ -13,6 +13,8 @@ import (
 type InPort string
 
 const (
+	baseSensorPath = "/sys/class/lego-sensor"
+
 	InPort1 InPort = "in1"
 	InPort2        = "in2"
 	InPort3        = "in3"
@@ -24,10 +26,10 @@ type Type string
 
 const (
 	TypeTouch      Type = "lego-ev3-touch"
-	TypeColor           = "ev3-uart-29"
-	TypeUltrasonic      = "ev3-uart-30"
-	TypeInfrared        = "ev3-uart-33"
-	TypeGyro            = "ev3-uart-32"
+	TypeColor           = "lego-ev3-color"
+	TypeUltrasonic      = "lego-ev3-us"
+	TypeInfrared        = "lego-ev3-ir"
+	TypeGyro            = "lego-ev3-gyro"
 )
 
 func (self Type) String() string {
@@ -48,15 +50,15 @@ func (self Type) String() string {
 }
 
 func findSensor(port InPort, t Type) string {
-	sensors, _ := ioutil.ReadDir("/sys/class/msensor")
+	sensors, _ := ioutil.ReadDir(baseSensorPath)
 
 	for _, item := range sensors {
 		if strings.HasPrefix(item.Name(), "sensor") {
-			sensorPath := fmt.Sprintf("/sys/class/msensor/%s", item.Name())
+			sensorPath := fmt.Sprintf("%s/%s", baseSensorPath, item.Name())
 			portr := utilities.ReadStringValue(sensorPath, "port_name")
 
 			if InPort(portr) == port {
-				typer := utilities.ReadStringValue(sensorPath, "name")
+				typer := utilities.ReadStringValue(sensorPath, "driver_name")
 
 				if Type(typer) == t {
 					return item.Name()

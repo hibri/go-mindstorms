@@ -24,7 +24,7 @@ func FindTouchSensor(port InPort) *TouchSensor {
 // Waits for the touch sensor to be pressed.
 func (self *TouchSensor) Wait() {
 	snr := findSensor(self.port, TypeTouch)
-	path := fmt.Sprintf("/sys/class/msensor/%s", snr)
+	path := fmt.Sprintf("%s/%s", baseSensorPath, snr)
 
 	for {
 		value := utilities.ReadUInt8Value(path, "value0")
