@@ -30,7 +30,11 @@ func findFilename(color Color, position Position) string {
 		log.Fatal("Amber colors must be decomposed into green and red")
 	}
 
-	filename := fmt.Sprintf("/sys/class/leds/ev3:%s:%s", string(color), string(position))
+	index := 1
+	if color == Red {
+		index = 0
+	}
+	filename := fmt.Sprintf("/sys/class/leds/ev3-%s%d:%s:ev3dev", string(position), index, string(color))
 
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		log.Fatal("Cannot find the LED interface")
