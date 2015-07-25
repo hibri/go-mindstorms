@@ -10,8 +10,8 @@ The [ev3dev project](http://www.ev3dev.org/) maintains open source, hacker-frien
 
 For example, executing the following shell commands will run a motor (assuming it was connected to some port first time after robot had been turned on) at 50% speed:
 
-	echo  50 > /sys/class/tacho-motor/tacho-motor0/duty_cycle_sp
-	echo   1 > /sys/class/tacho-motor/tacho-motor0/run
+	echo  50 > /sys/class/tacho-motor/motor0/duty_cycle_sp
+	echo run-forever > /sys/class/tacho-motor/motor0/command
 
 This enables third-party developers to write EV3 bindings for any programming language that has a file system IO API.
 
