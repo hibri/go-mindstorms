@@ -6,6 +6,11 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"sync"
+)
+
+var (
+	speak = sync.Mutex{}
 )
 
 // Speaks the given string of text at the specified volume and speed.
@@ -19,11 +24,13 @@ func SpeakWithOptions(text string, volume uint8, speed uint8) {
 	c1 := exec.Command("espeak", "--stdout", "-s", strconv.FormatInt(int64(speed), 10), "-a", strconv.FormatInt(int64(volume), 10), fmt.Sprintf("\"%s\"", text))
 	c2 := exec.Command("aplay")
 
+	speak.Lock()
 	c2.Stdin, _ = c1.StdoutPipe()
 	c2.Stdout = os.Stdout
 	_ = c2.Start()
 	_ = c1.Run()
 	_ = c2.Wait()
+	speak.Unlock()
 }
 
 // Asynchronously speaks the given string of text at maximum volume and with a moderate speed.
