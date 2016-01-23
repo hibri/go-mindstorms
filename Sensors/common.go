@@ -55,7 +55,7 @@ func findSensor(port InPort, t Type) string {
 	for _, item := range sensors {
 		if strings.HasPrefix(item.Name(), "sensor") {
 			sensorPath := fmt.Sprintf("%s/%s", baseSensorPath, item.Name())
-			portr := utilities.ReadStringValue(sensorPath, "port_name")
+			portr := utilities.ReadStringValue(sensorPath, "address")
 
 			if InPort(portr) == port {
 				typer := utilities.ReadStringValue(sensorPath, "driver_name")
