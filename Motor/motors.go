@@ -22,7 +22,7 @@ const (
 const (
 	rootMotorPath = "/sys/class/tacho-motor"
 	// File descriptors for getting/setting parameters
-	portFD           = "port_name"
+	portFD           = "address"
 	regulationModeFD = "speed_regulation"
 	speedGetterFD    = "speed"
 	speedSetterFD    = "speed_sp"
@@ -52,7 +52,7 @@ func findFolder(port OutPort) string {
 		}
 	}
 
-	log.Fatal("No motor is connected to port %s", port)
+	log.Fatal("No motor is connected to port ", port )
 	return ""
 }
 
