@@ -58,3 +58,4 @@ func TurnOff(color Color, position Position) {
 		utilities.WriteIntValue(findFilename(color, position), "brightness", 0)
 	}
 }
+
